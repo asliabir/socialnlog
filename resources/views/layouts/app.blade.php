@@ -8,16 +8,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/toastr.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -76,5 +73,64 @@
             @yield('content')
         </main>
     </div>
+    <!-- Scripts -->
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/toastr.min.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script>
+      @if(Session::has('message'))
+        let type = "{{Session::get('alert-type','info')}}";
+        switch(type){
+            case 'success':
+                toastr.success("{{ Session::get('message') }}", "Success", {
+                    closeButton: true,
+                    newestOnTop: true,
+                    progressBar: true,
+                    positionClass: "toast-top-center",
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    timeOut: "5000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut"});
+                break;
+            case 'error':
+                toastr.error("{{ Session::get('message') }}", "Error", {
+                    closeButton: true,
+                    newestOnTop: true,
+                    progressBar: true,
+                    positionClass: "toast-top-center",
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    timeOut: "5000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut"});
+                break;
+        }
+        @endif
+        @if ($errors->any())
+          @foreach ($errors->all() as $error)
+            toastr.warning("{{ $error }}", "Error", {
+            closeButton: true,
+            newestOnTop: true,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            showDuration: "300",
+            hideDuration: "1000",
+            timeOut: "5000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut"});
+          @endforeach
+        @endif
+    </script>
+
 </body>
 </html>

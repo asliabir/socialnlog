@@ -20,3 +20,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 //Route::post('/createPost', 'PostController@store')->name('post.create');
 Route::resource('posts', 'PostController');
+Route::get('change-like/{id}','PostController@changeLike');

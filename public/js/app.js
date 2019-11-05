@@ -36993,8 +36993,29 @@ module.exports = __webpack_require__(/*! C:\laragon\www\socialnlog\resources\sas
 
 /******/ });
 
-$('.like').on('click', function(e){
+function ForLike(url, id){
+  let option = $(".like");
+
+}
+
+$(".like").on('click',function(e){
     e.preventDefault();
-    var isLike = e.target.previousElementSibling == null;
-    console.log(isLike);
+    let url = $(this).attr('href');
+    let ter = $(this);
+    let status = ter.text();
+    $.ajax({
+        url: url,
+        type: 'GET',
+        success: function(response){
+            if(status == 'Like'){
+                ter.text('Unlike');
+            }else{
+                ter.text('Like');
+            }
+            console.log(response.message);
+        },
+        error: function(response){
+            console.log(response.message);
+        }
+    });
 });

@@ -26,18 +26,28 @@
                     <p>Posted by <strong>{{ $post->user->name }}</strong> on {{ $post->created_at }}</p>
                     <p> {{ $post->body }} </p>
                     <hr>
-                    <p><form action="/posts/{{ $post->id }}" method="post"> @csrf
-                            <a href="" class="btn btn-success like">Like({{ $post->like }})</a>
-                            ||<a href=""class="btn btn-secondary like">Dislike({{ $post->dislike }})</a>
+                    <p> <form action="/posts/{{ $post->id }}" method="post" > @csrf
+                            <a href="change-like/{{$post->id}}" class="btn btn-success like">
+                                @if($post->likes)
+                                    @if($post->likes->like == 0)
+                                        Like
+                                    @else
+                                        Unlike
+                                    @endif
+                                    @else Unlike
+                                @endif
 
-                            @if(Auth::user() == $post->user)
+                            </a>
+                        @if(Auth::user() == $post->user)
+
                                 || <button formaction="/posts/{{ $post->id
                     }}/edit" type="submit" name="_method" value="GET" class="btn
                     btn-warning">Edit</button> || <button type="submit" name="_method" value="DELETE" class="btn
                             btn-danger"/>Delete</button>
-                                @endif
+
+                        @endif
                         </form>
-                    <hr>
+                        <hr>
                     @endforeach
                 </div>
             </div>

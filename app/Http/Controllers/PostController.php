@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Post;
+use App\Like;
+
 class PostController extends Controller
 {
     public function __construct()
@@ -63,6 +65,31 @@ class PostController extends Controller
         return redirect('home')->with($notification);
     }
 
+    public function changeLike($id){
+        $user = Auth::user()->id;
+       $makeLike = Like::where([
+            'user_id' => $user,
+            'post_id' => $id
+        ])->first();
+//       return $makeLike;
+       if ($makeLike){
+           $un = $makeLike->like == 0 ? 1 : 0;
+           Like::where([
+               'user_id' => Auth::user()->id,
+               'post_id' => $id
+           ])->update([
+                   'like' => $un
+               ]);
+           return response()->json(['status' => $un, 'message' => 'Like Changed']);
+       } else {
+           Like::insert([
+               'user_id' => $user,
+               'post_id' => $id,
+               'like' => 1
+           ]);
+           return response()->json(['message' => 'Like done']);
+       }
+    }
 
     public function destroy($id)
     {

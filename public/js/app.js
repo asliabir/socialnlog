@@ -36992,3 +36992,9 @@ module.exports = __webpack_require__(/*! C:\laragon\www\socialnlog\resources\sas
 /***/ })
 
 /******/ });
+
+$('.like').on('click', function(e){
+    e.preventDefault();
+    var isLike = e.target.previousElementSibling == null;
+    console.log(isLike);
+});

@@ -26,9 +26,10 @@
                     <p>Posted by <strong>{{ $post->user->name }}</strong> on {{ $post->created_at }}</p>
                     <p> {{ $post->body }} </p>
                     <hr>
-                    <p><form action="/posts/{{ $post->id }}" method="post"> @csrf <a href="" class="btn
-                    btn-success like">Like({{ $post->like }})</a> || <a href=""class="btn
-                    btn-secondary dislike">Dislike({{ $post->dislike }})</a>
+                    <p><form action="/posts/{{ $post->id }}" method="post"> @csrf
+                            <a href="" class="btn btn-success like">Like({{ $post->like }})</a>
+                            ||<a href=""class="btn btn-secondary like">Dislike({{ $post->dislike }})</a>
+
                             @if(Auth::user() == $post->user)
                                 || <button formaction="/posts/{{ $post->id
                     }}/edit" type="submit" name="_method" value="GET" class="btn

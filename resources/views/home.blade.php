@@ -23,10 +23,19 @@
                 <hr>
                 <div class="card-body">
                     @foreach($posts as $post)
-                    <p>Posted by <strong>Abir</strong> on 16 Jul, 2019</p>
+                    <p>Posted by <strong>{{ $post->user->name }}</strong> on {{ $post->created_at }}</p>
                     <p> {{ $post->body }} </p>
                     <hr>
-                    <p><a href="" class="btn btn-success">Like({{ $post->like }})</a> || <a href=""class="btn btn-secondary">Dislike({{ $post->dislike }})</a> || <a href="" class="btn btn-warning">Edit</a> || <a href=""class="btn btn-danger">Delete</a></p>
+                    <p><form action="/posts/{{ $post->id }}" method="post"> @csrf <a href="" class="btn
+                    btn-success like">Like({{ $post->like }})</a> || <a href=""class="btn
+                    btn-secondary dislike">Dislike({{ $post->dislike }})</a>
+                            @if(Auth::user() == $post->user)
+                                || <button formaction="/posts/{{ $post->id
+                    }}/edit" type="submit" name="_method" value="GET" class="btn
+                    btn-warning">Edit</button> || <button type="submit" name="_method" value="DELETE" class="btn
+                            btn-danger"/>Delete</button>
+                                @endif
+                        </form>
                     <hr>
                     @endforeach
                 </div>

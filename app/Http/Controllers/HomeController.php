@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -24,8 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = DB::table('posts')->select('id','body','user_id', 'like', 'dislike')->get();
-
+        $posts = Post::all();
         return view('home')->with('posts', $posts);
     }
 }

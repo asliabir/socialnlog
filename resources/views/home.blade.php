@@ -22,13 +22,13 @@
                 </div>
                 <hr>
                 <div class="card-body">
+                    @foreach($posts as $post)
                     <p>Posted by <strong>Abir</strong> on 16 Jul, 2019</p>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus eaque eos facere iste laudantium magni nihil nostrum odio odit perspiciatis provident qui quia quibusdam quos, suscipit tenetur unde. Beatae, temporibus?
-                    </p>
+                    <p> {{ $post->body }} </p>
                     <hr>
-                    <p><a href="" class="btn btn-success">Like(0)</a> || <a href=""class="btn btn-secondary">Dislike(0)</a> || <a href="" class="btn btn-warning">Edit</a> || <a href=""class="btn btn-danger">Delete</a></p>
+                    <p><a href="" class="btn btn-success">Like({{ $post->like }})</a> || <a href=""class="btn btn-secondary">Dislike({{ $post->dislike }})</a> || <a href="" class="btn btn-warning">Edit</a> || <a href=""class="btn btn-danger">Delete</a></p>
                     <hr>
+                    @endforeach
                 </div>
             </div>
         </div>

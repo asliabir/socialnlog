@@ -31,7 +31,7 @@
                                 @if($post->likes)
                                     @if($post->likes->like == 0)
                                         Like
-                                    @else
+                                    @elseif($post->likes->like == 1)
                                         Unlike
                                     @endif
                                     @else Unlike
